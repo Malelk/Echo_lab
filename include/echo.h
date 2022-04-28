@@ -50,4 +50,7 @@ int open_listenfd(char *port);
 void Close(int fd);
 void echo(int connfd);
 void unix_error(char *msg);
+char *Fgets(char *ptr, int n, FILE *stream);
+void Fputs(const char *ptr, FILE *stream);
+void app_error(char *msg);
 #endif

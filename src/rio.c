@@ -213,3 +213,22 @@ ssize_t Rio_readlineb(rio_t *rp, void *usrbuf, size_t maxlen)
 		unix_error("Rio_readlineb error");
 	return rc;
 }
+char *Fgets(char *ptr, int n, FILE *stream)
+{
+	char *rptr;
+
+	if (((rptr = fgets(ptr, n, stream)) == NULL) && ferror(stream))
+		app_error("Fgets error");
+
+	return rptr;
+}
+void Fputs(const char *ptr, FILE *stream)
+{
+	if (fputs(ptr, stream) == EOF)
+		unix_error("Fputs error");
+}
+void app_error(char *msg) /* application error */
+{
+	fprintf(stderr, "%s\n", msg);
+	exit(0);
+}

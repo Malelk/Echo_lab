@@ -16,11 +16,11 @@ int main(int argc, char **argv)
 	Rio_readinitb(&rio, clientfd);
 	printf("Clientfd = %d\n", clientfd);
 	// printf("debug");
-	while (fgets(buf, MAXLINE, stdin) != NULL)
+	while (Fgets(buf, MAXLINE, stdin) != NULL)
 	{
 		Rio_writen(clientfd, buf, strlen(buf));
 		Rio_readlineb(&rio, buf, MAXLINE);
-		fputs(buf, MAXLINE);
+		Fputs(buf, MAXLINE);
 	}
 	close(clientfd);
 	exit(0);
