@@ -20,7 +20,7 @@ int open_listenfd(char *port)
 		setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, (const void *)&optval, sizeof(int));
 		if (bind(listenfd, p->ai_addr, sizeof(struct addrinfo)) == 0)
 			break;
-		close(listen);
+		close(listenfd);
 	}
 	freeaddrinfo(listp);
 	if (!p)

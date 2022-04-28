@@ -19,6 +19,7 @@ int open_clientfd(char *hostname, char *port)
 	getaddrinfo(hostname, port, &hints, &listp);
 	for (p = listp; p != NULL; p = p->ai_next)
 	{
+		// printf("debug\n");
 		if (clientfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol) < 0) //尝试创建socket
 			continue;
 		if (connect(clientfd, p->ai_addr, p->ai_addrlen) == 0) //链接成功
@@ -26,7 +27,7 @@ int open_clientfd(char *hostname, char *port)
 		close(clientfd);
 	}
 	freeaddrinfo(listp); //释放地址链表防止内存泄漏。
-	if (!p)
+	if (p == NULL)
 		return -1; // Failed
 	else
 		return clientfd;

@@ -100,6 +100,11 @@ static ssize_t rio_read(rio_t *rp, char *usrbuf, size_t n)
  * rio_readinitb - Associate a descriptor with a read buffer and reset buffer
  */
 /* $begin rio_readinitb */
+void unix_error(char *msg) /* unix-style error */
+{
+	fprintf(stderr, "%s: %s\n", msg, strerror(errno));
+	exit(0);
+}
 void rio_readinitb(rio_t *rp, int fd)
 {
 	rp->rio_fd = fd;

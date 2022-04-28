@@ -14,6 +14,8 @@ int main(int argc, char **argv)
 	port = argv[2];
 	clientfd = open_clientfd(host, port);
 	Rio_readinitb(&rio, clientfd);
+	printf("Clientfd = %d\n", clientfd);
+	// printf("debug");
 	while (fgets(buf, MAXLINE, stdin) != NULL)
 	{
 		Rio_writen(clientfd, buf, strlen(buf));

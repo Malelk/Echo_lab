@@ -21,7 +21,7 @@
 #include <arpa/inet.h>
 #ifndef ECHO
 #define ECHO
-
+typedef struct sockaddr SA;
 #define LISTENQ 1024
 #define MAXLINE 8192
 #define RIO_BUFSIZE 8192
@@ -49,4 +49,5 @@ int open_clientfd(char *hostname, char *port);
 int open_listenfd(char *port);
 void Close(int fd);
 void echo(int connfd);
+void unix_error(char *msg);
 #endif
