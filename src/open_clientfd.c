@@ -1,7 +1,9 @@
 #include "echo.h"
-
+#define CLIENT_DEBUG 1
+#if CLIENT_DEBUG
 int open_clientfd(char *hostname, char *port)
 {
+
 	int clientfd;
 	struct addrinfo hints, *listp, *p;
 	memset(&hints, 0, sizeof(struct addrinfo));
@@ -20,13 +22,17 @@ int open_clientfd(char *hostname, char *port)
 	for (p = listp; p != NULL; p = p->ai_next)
 	{
 
-		if (clientfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol) < 0) //尝试创建socket
+		if ((clientfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) < 0) //尝试创建socket
 			continue;
-		//	printf("Connect = %d \n", connect(clientfd, p->ai_addr, p->ai_addrlen));
 
-		if (connect(clientfd, p->ai_addr, p->ai_addrlen) != -1) //链接成功
+		//	printf("Clientfd = %d \n", clientfd);
+		int rc;
+		rc = connect(clientfd, p->ai_addr, p->ai_addrlen);
+		if (rc != -1)
+		{
 			break;
-		//	printf("debug\n");
+		} //链接成功
+		// printf("Connect Failed ERROR %d\n", errno);
 		close(clientfd);
 	}
 	freeaddrinfo(listp); //释放地址链表防止内存泄漏。
@@ -35,3 +41,4 @@ int open_clientfd(char *hostname, char *port)
 	else
 		return clientfd;
 }
+#endif

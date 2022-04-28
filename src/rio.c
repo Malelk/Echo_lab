@@ -222,6 +222,7 @@ char *Fgets(char *ptr, int n, FILE *stream)
 
 	return rptr;
 }
+
 void Fputs(const char *ptr, FILE *stream)
 {
 	if (fputs(ptr, stream) == EOF)

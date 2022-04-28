@@ -13,14 +13,19 @@ int main(int argc, char **argv)
 	host = argv[1];
 	port = argv[2];
 	clientfd = open_clientfd(host, port);
+	if (clientfd == -1)
+	{
+		//	unix_error("Cant't open client");
+		unix_error("");
+		exit(0);
+	}
 	Rio_readinitb(&rio, clientfd);
 	printf("Clientfd = %d\n", clientfd);
 	// printf("debug");
-	while (Fgets(buf, MAXLINE, stdin) != NULL)
+	while (1)
 	{
-		Rio_writen(clientfd, buf, strlen(buf));
-		Rio_readlineb(&rio, buf, MAXLINE);
-		Fputs(buf, MAXLINE);
+		fgets(buf, MAXLINE, stdin);
+		send(clientfd, buf, strlen(buf), 0);
 	}
 	close(clientfd);
 	exit(0);
